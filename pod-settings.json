@@ -1,21 +1,29 @@
 {
-	"id": "artifactory",
-	"kind": "pod",
-	"apiVersion": "v1beta1",
-	"desiredState": {
-		"manifest": {
-			"version": "v1beta1",
-			"containers": [{
-				"name": "artifactory",
-				"image": "mattgruter/artifactory",
-				"ports": [{
-						"containerPort": 8080,
-						"hostPort": 8080	
-				}]
-			}]
-		}
+	"kind": "Pod",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "artifactory",
+		"lables": {
+			"server": "prod"
+		},
+    		"namespace": ""
 	},
-	"lables": {
-		"name": "artifactory"
+ 	"spec": {
+		"containers": [{
+			"name": "artifactory",
+			"image": "jfrog-docker-registry.bintray.io/jfrog/artifactory-pro:4.0.2",
+			"ports": [{
+					"containerPort": 8080,
+					"hostPort": 8080	
+				}]
+			}],
+		"restartPolicy": "Always",
+		"volumes": [{
+			"name": "artifactory",
+			"gcePersistentDisk": {
+				"pdName": "artifactory",
+				"fsType": "ext4"
+			}
+		}]
 	}
 }
