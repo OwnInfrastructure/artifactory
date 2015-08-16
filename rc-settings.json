@@ -1,0 +1,45 @@
+{
+	"kind": "ReplicationController",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "artifactory-rc",
+		"labels": {
+			"server": "prod",
+			"app": "artifactory"
+		}
+	},
+ 	"spec": {
+		"replicas": 1,		
+		"selector": {
+			"server": "prod",
+      			"app": "artifactory"
+    		},
+		"template": {	
+			"metadata": {
+				"labels": {
+					"server": "prod",
+					"app": "artifactory"
+			 	}
+			},
+			"spec": {
+				"containers": [{
+					"name": "artifactory",
+					"image": "jfrog-docker-registry.bintray.io/jfrog/artifactory-oss:4.0.2",
+					"ports": [{
+						"containerPort": 8081,
+						"hostPort": 8081	
+					}]
+				}],
+				"restartPolicy": "Always",
+				"dnsPolicy": "ClusterFirst",
+				"volumes": [{
+					"name": "artifactory",
+					"gcePersistentDisk": {
+						"pdName": "artifactory",
+						"fsType": "ext4"
+					}
+				}]
+			}
+		}
+	}
+}

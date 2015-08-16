@@ -1,0 +1,18 @@
+{
+	"kind": "Service",
+	"apiVersion": "v1",
+	"metadata": {
+		"name": "artifactory-service"
+	},
+ 	"spec": {
+		"ports": [{
+			"port": 80,
+			"targetPort": 8081	
+		}],
+		"selector": {
+      			"server": "prod",
+			"app": "artifactory"
+    		},
+    		"type": "LoadBalancer"
+	}
+}
