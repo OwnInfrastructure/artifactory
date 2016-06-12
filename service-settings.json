@@ -10,9 +10,9 @@
 			"targetPort": 8081	
 		}],
 		"selector": {
-      			"server": "prod",
+      		"server": "prod",
 			"app": "artifactory"
-    		},
-    		"type": "LoadBalancer"
+    	},
+    	"type": "LoadBalancer"
 	}
 }

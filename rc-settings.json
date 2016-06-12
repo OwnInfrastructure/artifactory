@@ -24,16 +24,30 @@
 			"spec": {
 				"containers": [{
 					"name": "artifactory",
-					"image": "jfrog-docker-registry.bintray.io/jfrog/artifactory-oss:4.0.2",
+					"image": "jfrog-docker-reg2.bintray.io/jfrog/artifactory-oss",
 					"ports": [{
 						"containerPort": 8081,
 						"hostPort": 8081	
-					}]
+					}],
+					"volumeMounts": [{
+						"mountPath": "/var/opt/jfrog/artifactory/data",
+						"name": "artifactory-etc"
+					}],
+					"resources": {
+						"limits": {
+							"cpu": "200m",
+							"memory": "2000Mi"
+						}, 
+						"requests": {
+							"cpu": "10m",
+							"memory": "1000Mi"
+						}
+					}
 				}],
 				"restartPolicy": "Always",
 				"dnsPolicy": "ClusterFirst",
 				"volumes": [{
-					"name": "artifactory",
+					"name": "artifactory-etc",
 					"gcePersistentDisk": {
 						"pdName": "artifactory",
 						"fsType": "ext4"
